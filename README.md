@@ -30,3 +30,7 @@ $ which terraform
 $ terraform -v
 Terraform v0.12.20
 ```
+
+# Also consider
+https://github.com/tfutils/tfenv
+https://warrensbox.github.io/terraform-switcher/
