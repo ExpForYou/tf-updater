@@ -6,7 +6,13 @@
 
 LATEST_RELEASE_TAG=$(curl https://api.github.com/repos/hashicorp/terraform/releases/latest | jq --raw-output '.tag_name' | cut -c 2-)
 LATEST_RELEASE=$(awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }' <<< $LATEST_RELEASE_TAG)
-CURRENT_TF_VERSION=$(terraform -v | awk 'NR==1{print $NF}' | cut -c 2- | awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }')
+
+# Install if Terraform not found, by declaring Terraform version to be 0
+if ! type "terraform" > /dev/null 2>&1; then
+  CURRENT_TF_VERSION=0
+else
+  CURRENT_TF_VERSION=$(terraform -v | awk 'NR==1{print $NF}' | cut -c 2- | awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }')
+fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   OS=linux
