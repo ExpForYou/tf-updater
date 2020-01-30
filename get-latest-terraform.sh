@@ -1,8 +1,7 @@
 #!/bin/bash
 #
 # If there's a new Terraform releases available, delete the current Terraform install and download the new one.
-# Must be run from within the directory where terraform binaries should reside
-#
+# Works even if Terraform is not installed!
 
 LATEST_RELEASE_TAG=$(curl https://api.github.com/repos/hashicorp/terraform/releases/latest | jq --raw-output '.tag_name' | cut -c 2-)
 LATEST_RELEASE=$(awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }' <<< $LATEST_RELEASE_TAG)
