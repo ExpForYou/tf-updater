@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# If there's a new Terraform releases available, delete the current Terraform install and download the new one.
+# https://github.com/sskalnik/tf-updater
+#
+# If there's a new Terraform release available, delete the current Terraform install and download the new one.
 # Works even if Terraform is not installed!
 
 LATEST_RELEASE_TAG=$(curl https://api.github.com/repos/hashicorp/terraform/releases/latest | jq --raw-output '.tag_name' | cut -c 2-)
@@ -23,7 +25,7 @@ if [ ${LATEST_RELEASE} -gt ${CURRENT_TF_VERSION} ]; then
    echo "Installing Terraform ${LATEST_RELEASE_TAG} for ${OS}..."
    cd /tmp/
    wget https://releases.hashicorp.com/terraform/${LATEST_RELEASE_TAG}/terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip
-   sudo unzip terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip -d /usr/local/bin
+   unzip terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip -d /usr/local/bin
    rm terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip
    cd -
 else
