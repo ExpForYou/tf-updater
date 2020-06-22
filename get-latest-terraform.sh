@@ -24,7 +24,7 @@ fi
 if [ "${LATEST_RELEASE}" -gt "${CURRENT_TF_VERSION}" ]; then
    echo "Installing Terraform ${LATEST_RELEASE_TAG} for ${OS}..."
    cd /tmp/ || exit
-   wget "https://releases.hashicorp.com/terraform/${LATEST_RELEASE_TAG}/terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip"
+   wget -q "https://releases.hashicorp.com/terraform/${LATEST_RELEASE_TAG}/terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip"
    unzip "terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip -d /usr/local/bin"
    rm "terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip"
    cd -
