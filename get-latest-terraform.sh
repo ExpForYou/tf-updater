@@ -6,7 +6,7 @@
 # Works even if Terraform is not installed!
 
 LATEST_RELEASE_TAG=$(curl https://api.github.com/repos/hashicorp/terraform/releases/latest | jq --raw-output '.tag_name' | cut -c 2-)
-LATEST_RELEASE=$(awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }' <<< $LATEST_RELEASE_TAG)
+LATEST_RELEASE=$(awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }' <<< "$LATEST_RELEASE_TAG")
 
 # Install if Terraform not found, by declaring Terraform version to be 0
 if ! type "terraform" > /dev/null 2>&1; then
@@ -21,12 +21,12 @@ else
   OS=$OSTYPE
 fi
 
-if [ ${LATEST_RELEASE} -gt ${CURRENT_TF_VERSION} ]; then
+if [ "${LATEST_RELEASE}" -gt "${CURRENT_TF_VERSION}" ]; then
    echo "Installing Terraform ${LATEST_RELEASE_TAG} for ${OS}..."
-   cd /tmp/
-   wget https://releases.hashicorp.com/terraform/${LATEST_RELEASE_TAG}/terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip
-   unzip terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip -d /usr/local/bin
-   rm terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip
+   cd /tmp/ || exit
+   wget "https://releases.hashicorp.com/terraform/${LATEST_RELEASE_TAG}/terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip"
+   unzip "terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip -d /usr/local/bin"
+   rm "terraform_${LATEST_RELEASE_TAG}_${OS}_amd64.zip"
    cd -
 else
    echo "Latest Terraform already installed."
