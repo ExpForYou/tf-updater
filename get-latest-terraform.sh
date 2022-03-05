@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# https://github.com/sskalnik/tf-updater
+# https://github.com/expforyou/tf-updater
 #
 # If there's a new Terraform release available, delete the current Terraform install and download the new one.
 # Works even if Terraform is not installed!
